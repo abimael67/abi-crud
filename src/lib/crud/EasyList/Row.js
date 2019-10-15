@@ -8,10 +8,13 @@ export const Row = (props) =>{
             ({context, config, history}) => {
                 
                 const gotoView = (id) =>{
-                    history.push(`/view/${id}`)
+                   // history.push(`/view/${id}`)
+                   
+                   history.setView('view')
                 }
                 const gotoEdit = (id) =>{
-                    history.push(`/edit/${id}`)
+                    history.setView('edit')
+                    //history.push(`/edit/${id}`)
                 }
                 let cells = []
                 let lastInd = 0
@@ -32,7 +35,7 @@ export const Row = (props) =>{
                 if(config.actions.includes('view'))
                     val.push(
                         buildButton(
-                            config.labels.listView.viewAction,
+                            config.labels.listView.viewAction || 'view',
                             lastInd+1,
                             config.tableConfig.viewActionClassName + " viewBtn",
                             props.row[context.entityIdColumn],
@@ -42,7 +45,7 @@ export const Row = (props) =>{
                 if(config.actions.includes('edit'))
                     val.push(
                         buildButton(
-                            config.labels.listView.editAction,
+                            config.labels.listView.editAction || 'edit',
                             lastInd+2,
                             config.tableConfig.editActionClassName + " editBtn", props.row[context.entityIdColumn],
                             gotoEdit
@@ -51,7 +54,7 @@ export const Row = (props) =>{
                 if(config.actions.includes('delete'))
                     val.push(
                         buildButton(
-                            config.labels.listView.deleteAction,
+                            config.labels.listView.deleteAction || 'delete',
                             lastInd+3,
                             config.tableConfig.deleteActionClassName + " deleteBtn", props.row[context.entityIdColumn],
                             props.deleteHandler
@@ -68,6 +71,12 @@ export const Row = (props) =>{
 
 function buildButton(label, key, className, id, callback){
     return (
-        <button style={{marginRight:'0.3em'}} onClick={()=>callback(id)} id={id} key={key} className={className}><span dangerouslySetInnerHTML={{ __html: label }}></span></button>
+        <button style={{marginRight:'0.3em'}} 
+        onClick={()=>callback(id)}
+        id={id}
+        key={key}
+        className={className}>
+            <span dangerouslySetInnerHTML={{ __html: label }}></span>
+        </button>
     )
 }

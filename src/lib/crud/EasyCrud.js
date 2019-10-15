@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {EasyList} from './EasyList/List';
 import {MainContext} from './MainContext'
 import PropTypes from 'prop-types'
@@ -37,7 +37,7 @@ import {getConfig} from './util/defaultProps'
 
 const EasyCrud = ({data, config}) => {
  
-         
+         const [currentView, setView] = useState('list')
         let toRender = <EasyList/>
       /*  let pathArray = this.props.match? this.props.match.url.split('/') : []
         let urlName = pathArray.some(e=>e === 'view')? 'view': pathArray.some(e=>e === 'edit') ? 'edit' : pathArray.some(e=>e === 'new')? 'new':'list'
@@ -60,7 +60,7 @@ const EasyCrud = ({data, config}) => {
         }
       */
         return (
-            <MainContext.Provider value={{context: data, config: getConfig(config), history: null}}>
+            <MainContext.Provider value={{context: data, config: getConfig(config), history:{setView: setView, current:currentView}}}>
             <div className="container" style={{marginTop:'2em'}}>
             <div style={{backgroundColor:'#ccc', padding:'0.3em', boxShadow:'0 1px 1px'}}><h4 style={{display:'inline'}} >{data.entityDisplayName.toUpperCase()}</h4><div style={{display:'inline', textAlign:'right'}}>{" "}<button className="btn btn-success" onClick={()=> this.props.history.push(`${this.props.history.location.pathname}/new`)}>Create</button></div></div>
             

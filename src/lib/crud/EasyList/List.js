@@ -33,9 +33,10 @@ class EasyListFactory extends React.Component{
     }
    
     render(){
-     
+       
         return (           
-            <div>                    
+            <div>   
+                <span>{this.props.history.current || 'none'}</span>                 
                 <table id={`datatable_${this.props.data.entityName || ""}`} className={this.props.config.tableConfig.className}>
                     <Header/>
                     <tbody>

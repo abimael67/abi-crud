@@ -31,7 +31,7 @@ export const Header = (props) =>{
                         displays.push(
                         changeCaseType(
                             config.labelsConfig.caseType,
-                            config.labels.listView.actionsHeader || ''
+                           config.labels.listView.actionsHeader
                         ))    
                 return(
                     displays.map((fieldName, i) => <th key={i}>{changeCaseType(config.labelsConfig.caseType,fieldName)}</th>)              

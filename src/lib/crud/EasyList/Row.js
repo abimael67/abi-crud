@@ -35,7 +35,7 @@ export const Row = (props) =>{
                 if(config.actions.includes('view'))
                     val.push(
                         buildButton(
-                            config.labels.listView.viewAction || 'view',
+                            config.labels.listView.viewAction,
                             lastInd+1,
                             config.tableConfig.viewActionClassName + " viewBtn",
                             props.row[context.entityIdColumn],

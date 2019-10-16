@@ -18,15 +18,15 @@ export const getConfig = (customConfig) => {
                 viewActionCallBack: null,            
             },
             labels:{
-                list:{
-                    searchBoxPlaceholder: "Buscar {entity}",
-                    showRowsPerPages: "Mostrar {select} {entity} por página",
-                    showingRows: "Mostrando de {start} a {end} de {rows} {entity} (Página {page} de {pages})",
-                    noRows: "No se encontraron {entity}",
-                    actionsHeader: "Acciones",
-                    deleteAction:"<span class='oi oi-trash'></span>",
-                    editAction:"<span class='oi oi-pencil'></span>",
-                    viewAction:"<span class='oi oi-eye'></span>",
+                listView:{
+                    searchBoxPlaceholder: "Search {entity}",
+                    showRowsPerPages: "Show {select} {entity} per page",
+                    showingRows: "Showing from {start} to {end} of {rows} {entity} (Page {page} of {pages})",
+                    noRows: "No {entity} found",
+                    actionsHeader: "Actions",
+                    deleteAction:"delete",
+                    editAction:"edit",
+                    viewAction:"view",
                 }
             },
             actions:['edit', 'view', 'delete']

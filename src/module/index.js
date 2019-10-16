@@ -34,11 +34,5 @@ const App =()=> <EasyCrud data={{
     entityName:'cars',
     entityIdColumn:'id',
     entityDisplayName:'Cars'
-}} config={
-    {labelsConfig:{caseType:'lower'},
-     fieldsToHide:['id'],
-     labels:{listView:{
-         deleteConfirmMessage:'Are you sure you want to delete this car?',
-         
-        }}}}/>;
+}} />;
 export default App;

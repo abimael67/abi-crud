@@ -10,10 +10,10 @@ export const Row = (props) =>{
                 const gotoView = (id) =>{
                    // history.push(`/view/${id}`)
                    
-                   history.setView('view')
+                   history.setView({view:'view', id:id})
                 }
                 const gotoEdit = (id) =>{
-                    history.setView('edit')
+                    history.setView({view:'edit', id:id})
                     //history.push(`/edit/${id}`)
                 }
                 let cells = []

@@ -1,6 +1,6 @@
 import React from 'react'
 import {MainContext} from '../MainContext'
-import {changeCaseType, getColumnsDisplayNames} from '../util/text'
+import {changeCaseType, getColumnsDisplayNames} from '../Util/text'
 export const Header = (props) =>{    
     return (
         <thead>

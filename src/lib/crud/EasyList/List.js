@@ -2,8 +2,6 @@ import React from 'react';
 import {Row} from './Row'
 import {MainContext} from '../MainContext'
 import {Header} from './Header'
-import {DataTable} from "simple-datatables"
-import {getDataTableConfig} from '../util/datatableConfig'
 
 class EasyListFactory extends React.Component{
     constructor(props){
@@ -20,13 +18,12 @@ class EasyListFactory extends React.Component{
         if(prevProps.data.entities != this.props.data.entities){
             this.setState({
                 entities: this.props.data.entities
-            })
-           
+            })           
         }
     }   
     deleteHandler(id){
         let d = this.props.data 
-        if(window.confirm(this.props.config.labels.listView.deleteConfirmMessage ||'Are you sure?'))        
+        if(window.confirm(this.props.config.labels.listView.deleteConfirmMessage))        
             this.setState({
                 entities: this.state.entities.filter(e=> e[d.entityIdColumn] != id)
             }) 
@@ -36,7 +33,7 @@ class EasyListFactory extends React.Component{
        
         return (           
             <div>   
-                <span>{this.props.history.current || 'none'}</span>                 
+                <span>{this.props.history.current.view || 'none'}</span>                 
                 <table id={`datatable_${this.props.data.entityName || ""}`} className={this.props.config.tableConfig.className}>
                     <Header/>
                     <tbody>

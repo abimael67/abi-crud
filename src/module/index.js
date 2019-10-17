@@ -32,7 +32,8 @@ const sampleData = {
 const App =()=> <EasyCrud data={{
     entities:sampleData.cars,
     entityName:'cars',
-    entityIdColumn:'id',
-    entityDisplayName:'Cars'
+    entityId:'id',
+    entityDisplayName:'Cars',
+    
 }} />;
 export default App;

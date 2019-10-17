@@ -1,28 +1,25 @@
 import React, {useState} from 'react'
-import {EasyList} from './EasyList/List';
+import {EasyList} from './EasyList/List'
 import {MainContext} from './MainContext'
-
-import { EasyForm } from './EasyForm/Form';
-
-import {getDataTableConfig} from './util/datatableConfig'
-import {getConfig} from './util/defaultProps'
-import { crudPT } from './util/propTypes';
-
+import {getConfig, getData} from './Util/defaultProps'
+import { crudPT } from './Util/propTypes'
+import EasyForm from './EasyForm/'
+/**Master entry component that controls all screens and manages the initial states for the CRUD operations. */
 const EasyCrud = ({data, config}) => {
  
-         const [currentView, setView] = useState('list')
+         const [currentView, setView] = useState({view:'list', id:''})
+         const [currentData, setData] = useState(data)
         let toRender = <EasyList/>
-      /*  let pathArray = this.props.match? this.props.match.url.split('/') : []
-        let urlName = pathArray.some(e=>e === 'view')? 'view': pathArray.some(e=>e === 'edit') ? 'edit' : pathArray.some(e=>e === 'new')? 'new':'list'
-        switch(urlName.toLowerCase()){
+
+         switch(currentView.view.toLowerCase()){
             case 'view':
-                toRender = <EasyForm mode='view' id={this.props.match.params.id}/>
+                toRender = <EasyForm mode='view' id={currentView.id}/>
             break
             case 'edit':
-                toRender = <EasyForm mode='edit' id={this.props.match.params.id}/>
+                toRender = <EasyForm mode='edit' id={currentView.id}/>
             break
             case 'new':
-                toRender = <EasyForm mode='new' id={this.props.match.params.id}/>
+                toRender = <EasyForm mode='new' id={currentView.id}/>
             break
             case 'list':
                 toRender = <EasyList/>
@@ -31,18 +28,21 @@ const EasyCrud = ({data, config}) => {
                 toRender = <EasyList/>
             break
         }
-      */
+        
         return (
-            <MainContext.Provider value={{context: data, config: getConfig(config), history:{setView: setView, current:currentView}}}>
+            <MainContext.Provider value={
+                {
+                    context: Object.assign(getData(currentData),{setData:setData}),
+                    config: getConfig(config),
+                    history:{setView: setView, current:currentView}
+                }
+            }>
             <div className="container" style={{marginTop:'2em'}}>
             <div style={{backgroundColor:'#ccc', padding:'0.3em', boxShadow:'0 1px 1px'}}><h4 style={{display:'inline'}} >{data.entityDisplayName.toUpperCase()}</h4><div style={{display:'inline', textAlign:'right'}}>{" "}<button className="btn btn-success" onClick={()=> this.props.history.push(`${this.props.history.location.pathname}/new`)}>Create</button></div></div>
-            
                 {toRender}
-            </div>
-            
+            </div>            
             </MainContext.Provider>
-        )
-    
+        )    
 }
 
 

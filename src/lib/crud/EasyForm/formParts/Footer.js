@@ -11,7 +11,7 @@ export const FormFooter = ({saveCallback, deleteCallback, createCallback, mode, 
             <button className="btn btn-info" disabled={saveButtonDisabled} onClick={()=>saveCallback()}>Guardar</button>{" "}
             </React.Fragment>):mode === 'new'? <button className="btn btn-success" disabled={saveButtonDisabled} onClick={()=>createCallback()}>Create</button>:''}
             {" "} 
-            <button onClick={()=> goBack()} className="btn btn-default">Volver</button>
+            <button onClick={()=> goBack()} className="btn btn-default">Back</button>
         </div>
     </div>
     )

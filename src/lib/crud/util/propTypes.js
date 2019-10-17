@@ -7,7 +7,7 @@ export const crudPT = () => ({
         /**Receives a name for the entity to be identified by all over the screens. */
         entityName: PropTypes.string.isRequired,
         /**Unique identity field of the entity that will be used to refer to a single record in the data.  */
-        entityIdColumn:PropTypes.string.isRequired,
+        entityId:PropTypes.string.isRequired,
         /**If you want to display a more friendly name for your entity, then you can put that name in this field. If empty, entityName will be used instead. */
         entityDisplayName:PropTypes.string,
         
@@ -58,7 +58,9 @@ export const crudPT = () => ({
             editActionCallBack: PropTypes.func,
              /**Callback function to handle viewing of items. */
             viewActionCallBack: PropTypes.func,          
-        }), 
+        }),
+        /**Receives an array of enabled actions. Available actions are "edit", "view", "delete", "create" */
+        actions:PropTypes.arrayOf(PropTypes.string),
         /**All labels displayed all over the CRUD screens can be customized here. */             
         labels:PropTypes.shape({
             /**Labels of the listView screen. If empty, default generic english labels will be used instead.*/

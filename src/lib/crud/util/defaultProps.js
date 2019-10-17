@@ -1,6 +1,6 @@
+/**Completes with default values the missing configuration attributes provided by the user.*/
 export const getConfig = (customConfig) => {
-    let defaultConfigProps = {
-                  
+    let defaultConfigProps = {                  
             fieldsToDisplay: [],
             fieldsToHide: [],
             fieldsDisplayNames:[],       
@@ -27,11 +27,29 @@ export const getConfig = (customConfig) => {
                     deleteAction:"delete",
                     editAction:"edit",
                     viewAction:"view",
+                    deleteConfirmMessage:'Are you sure?'
                 }
             },
-            actions:['edit', 'view', 'delete']
+            actions:['edit', 'view', 'delete', 'create'],
+            actionsCallbacks:{
+                edit:null,
+                delete:null,
+                create:null
+            }
         }
     
 
     return Object.assign(defaultConfigProps, defaultConfigProps, customConfig)
+}
+/**Completes and auto-generate some data values that will be used througout the screens. */
+export const getData = (data) => {
+    return Object.assign(data, data, {
+        fields: getFields(data.entities)
+    })
+}
+/**Gets the first level fields names based in the entities data provided. */
+let getFields = (entities) => {
+    if(entities.length <= 0) return []
+    let firstLevel = Object.keys(entities[0])
+    return firstLevel
 }

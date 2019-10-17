@@ -1,6 +1,6 @@
 import React from 'react'
 import { MainContext } from '../MainContext';
-
+import MainController from '../Controllers/mainController'
 import { FormFooter } from './formParts/Footer';
 import { FormBody } from './formParts/Body';
 
@@ -15,10 +15,11 @@ class EasyFormFactory extends React.Component{
        this.goBack = this.goBack.bind(this)
        this.saveCallbackHandler = this.saveCallbackHandler.bind(this)
        this.createCallbackHandler = this.createCallbackHandler.bind(this)
+       this.controller = new MainController(this.props.data)
     }
-
+    
     goBack(){
-        this.props.history.goBack()
+        this.props.history.setView({view:'list'})
     }
     componentDidUpdate(prevProps){
         if(prevProps.data.entities !== this.props.data.entities && !this.state.entity)
@@ -48,7 +49,9 @@ class EasyFormFactory extends React.Component{
         this.setState({
             saveButtonDisabled: true
         })
-        this.props.config.actionsCallbacks.update(this.state.entity)
+        let d = this.props.data
+        d.setData(Object.assign(d,d,{entities:this.controller.updateEntity(this.state.entity)}))
+       // this.props.config.actionsCallbacks.update(this.state.entity)
     }
     createCallbackHandler(){
        
@@ -56,7 +59,7 @@ class EasyFormFactory extends React.Component{
     }
     
     render(){
-        
+        console.log(this.props.data)
         let c = this.props.config  
         let values = [] 
         let fieldsNames = this.props.data.fields.filter(e=> typeof e !== 'object');

@@ -20,27 +20,34 @@ const sampleData = {
         {
             idContact: 1,
             name: 'Alexander',
-            tel: '8096546556'
+            tel: '8096546556',            
+            country:'RD'
         },
         {
             idContact: 2,
             name: 'Samuel',
-            tel: '80946545666'
+            tel: '80946545666',
+            country:'USA'
         }
     ]
 }
 const App = () => <EasyCrud data={{
-    entities: sampleData.cars,
-    entityName: 'cars',
-    entityId: 'id',
-    entityDisplayName: 'Cars',
-
+    entities: sampleData.contacts,
+    entityName: 'contacts',
+    entityId: 'idContact',
+    entityDisplayName: 'Polla',
+ 
+    
 }}
-    config={{
-        fieldsToHide: ['id'],
-        actionsCallbacks: {
-
-        }
-    }}
+   
+   config={{
+       labels:{
+            listView:{
+                deleteConfirmMessage:'are you sure you want to delete this contact?'
+            }
+       },
+       actionsCallbacks:{
+       update:(e)=>alert(e)
+   }}}
 />;
 export default App;

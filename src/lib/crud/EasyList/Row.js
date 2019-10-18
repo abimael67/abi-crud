@@ -8,16 +8,16 @@ export const Row = (props) => {
                 ({ context, config, history }) => {
 
                     const gotoView = (id) => {
-                        // history.push(`/view/${id}`)
-
+                       
                         history.setView({ view: 'view', id: id })
                     }
                     const gotoEdit = (id) => {
                         history.setView({ view: 'edit', id: id })
-                        //history.push(`/edit/${id}`)
+                       
                     }
                     let cells = []
                     let lastInd = 0
+                    //Value Cells
                     Object.keys(props.row).forEach((fieldName, i) => {
                         let value = Object.values(props.row)[i]
                         lastInd = i + 1
@@ -31,6 +31,8 @@ export const Row = (props) => {
                         }
                         else cells.push(<Cell key={i}>{value}</Cell>)
                     })
+                  
+                    //Action button cells
                     let val = []
                     if (config.actions.includes('view'))
                         val.push(

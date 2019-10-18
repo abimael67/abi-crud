@@ -28,6 +28,10 @@ export const getConfig = (customConfig) => {
                     editAction:"edit",
                     viewAction:"view",
                     deleteConfirmMessage:'Are you sure?'
+                },
+                editView:{
+                    saveButton:'save',
+                    backButton:'back',
                 }
             },
             actions:['edit', 'view', 'delete', 'create'],
@@ -39,8 +43,20 @@ export const getConfig = (customConfig) => {
         }
     
 
-    return Object.assign(defaultConfigProps, defaultConfigProps, customConfig)
+    return {
+        ...defaultConfigProps, 
+        labels: {
+            ...defaultConfigProps.labels,
+            ...customConfig.labels,
+            listView:{
+            ...defaultConfigProps.labels.listView,                
+            ...customConfig.labels.listView
+            }
+        }
+    }
+
 }
+
 /**Completes and auto-generate some data values that will be used througout the screens. */
 export const getData = (data) => {
     return Object.assign(data, data, {

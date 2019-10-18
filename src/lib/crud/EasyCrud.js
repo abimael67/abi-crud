@@ -32,12 +32,13 @@ const EasyCrud = ({ data, config }) => {
     let setEntities = (entities) => {
         setData(Object.assign(currentData, { entities: entities }))
     }
+    console.log(getConfig(config))
     return (
         <MainContext.Provider value={
             {
-                context: Object.assign(getData(currentData), { setData: setData, setEntities: setEntities }),
+                context: Object.assign(getData(currentData), {  setData, setEntities }),
                 config: getConfig(config),
-                history: { setView: setView, current: currentView }
+                history: {  setView, current: currentView }
             }
         }>
             <div className="container" style={{ marginTop: '2em' }}>

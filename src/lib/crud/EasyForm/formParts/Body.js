@@ -11,8 +11,7 @@ export const FormBody = ({fieldsNames, values, changeHandler, disabled, displayN
         let currentFieldNames = Object.values(obj)[0]
         let currentValues = objVals.length> 0 ? objVals[0]: []
         let displayNames = currentFieldNames
-        /*let displayNames = config.fieldsDisplayNames.length > 0?
-         config.fieldsDisplayNames[objName] : fieldsNames*/
+       
         return (
             <React.Fragment key={`obj_${obi}`}>
             <h5 id="list-item-2">{objName}</h5><br/>
@@ -45,7 +44,7 @@ export const FormBody = ({fieldsNames, values, changeHandler, disabled, displayN
         {
             fieldsNames.filter(f=> typeof f !== 'object').map((e,i)=> {
                 if(typeof values[i] === 'object') return ""                    
-                let type = config.fieldsTypes.length > 0? config.fieldsType.find(ft=>ft.fieldName === e): null
+                let type = config.fieldsTypes.length > 0? config.fieldsTypes.find(ft=>ft.fieldName === e): null
             return (
                     <FieldBody type={type} onChange={changeHandler} className="form-control" disabled={disabled} name={e} label={displayNames[i]} value={values[i]} key={`fbody${i}`} />
                     )

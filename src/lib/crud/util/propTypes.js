@@ -17,9 +17,7 @@ export const crudPT = () => ({
         /**Only fields specified here will be shown all over the screens. */
         fieldsToDisplay: PropTypes.arrayOf(PropTypes.string),
         /**Fields specified here will be hidden. */
-        fieldsToHide: PropTypes.arrayOf(PropTypes.string),
-        /**Field names will be replaced by names in this array. This array must be either empty or must include ALL the corresponding fields in the original order to work properly. If empty, original field names will be used instead. */
-        fieldsDisplayNames: PropTypes.arrayOf(PropTypes.string),
+        fieldsToHide: PropTypes.arrayOf(PropTypes.string),     
         /**Sets the decorations of the labels all over the screens. */
         labelsConfig: PropTypes.shape({
             /**Receives one case type to be either "capital", "upper" or "lower. Default "capital". */
@@ -28,9 +26,13 @@ export const crudPT = () => ({
         /**In construction. Do not use. */
         fieldsTypes: PropTypes.arrayOf(PropTypes.shape({
             fieldName: PropTypes.string,
+            displayName:PropTypes.string,
             type: PropTypes.shape({
-                type: PropTypes.oneOf(['text', 'date', 'select', 'bool']),
-                options: PropTypes.any
+                dataType: PropTypes.oneOf(['text', 'date', 'select', 'bool']),
+                options: PropTypes.arrayOf(PropTypes.shape({
+                    value:PropTypes.string,
+                    text:PropTypes.any
+                }))
             })
         })),
         /**Receives the basic CRUD actions callbacks. If null, basic handler will be used instead. */
@@ -76,5 +78,7 @@ export const crudPT = () => ({
                 deleteConfirmMessage: PropTypes.string
             })
         }),
+
+
     })
 })

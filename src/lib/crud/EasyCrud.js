@@ -4,25 +4,26 @@ import { MainContext } from './MainContext'
 import { getConfig, getData } from './Util/defaultProps'
 import { crudPT } from './Util/propTypes'
 import EasyForm from './EasyForm/'
+import {ViewScreens, ActionModes} from './Util/enum'
 /**Master entry component that controls all screens and manages the initial states for the CRUD operations. */
 const EasyCrud = ({ data, config }) => {
 
-    const [currentView, setView] = useState({ view: 'list', id: '' })
+    const [currentView, setView] = useState({ view: ViewScreens.List, id: '' })
     const [currentData, setData] = useState(data)
 
     let toRender = <EasyList />
 
     switch (currentView.view.toLowerCase()) {
-        case 'view':
-            toRender = <EasyForm mode='view' id={currentView.id} />
+        case ViewScreens.View:
+            toRender = <EasyForm mode={ActionModes.Display} id={currentView.id} />
             break
-        case 'edit':
-            toRender = <EasyForm mode='edit' id={currentView.id} />
+        case ViewScreens.Edit:
+            toRender = <EasyForm mode={ActionModes.Update} id={currentView.id} />
             break
-        case 'new':
-            toRender = <EasyForm mode='new' id={currentView.id} />
+        case ViewScreens.Create:
+            toRender = <EasyForm mode={ActionModes.Insert} id={currentView.id} />
             break
-        case 'list':
+        case ViewScreens.List:
             toRender = <EasyList />
             break
         default:
@@ -32,12 +33,12 @@ const EasyCrud = ({ data, config }) => {
     let setEntities = (entities) => {
         setData(Object.assign(currentData, { entities: entities }))
     }
-    console.log(getConfig(config))
+   
     return (
         <MainContext.Provider value={
             {
                 context: Object.assign(getData(currentData), {  setData, setEntities }),
-                config: getConfig(config),
+                config:getConfig({...config,fields:getData(currentData).fields}),
                 history: {  setView, current: currentView }
             }
         }>

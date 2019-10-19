@@ -1,13 +1,16 @@
+
+
 /**Completes with default values the missing configuration attributes provided by the user.*/
-export const getConfig = (customConfig) => {
+export const getConfig = (customConfig) => { 
+    let fieldsT =    getFieldTypes(customConfig.fieldTypes, customConfig.fields)
     let defaultConfigProps = {                  
             fieldsToDisplay: [],
             fieldsToHide: [],
-            fieldsDisplayNames:[],       
+            fieldsToDisplayNames:getDisplayNames(customConfig, fieldsT),       
             labelsConfig:{
                 caseType: 'capital'
             },
-            fieldsTypes:[],
+            fieldsTypes:fieldsT,
             tableConfig:{
                 className: 'table table-striped table-bordered',
                 deleteActionClassName: 'btn btn-danger',
@@ -45,6 +48,7 @@ export const getConfig = (customConfig) => {
 
     return {
         ...defaultConfigProps, 
+        ...customConfig,
         labels: {
             ...defaultConfigProps.labels,
             ...customConfig.labels,
@@ -56,10 +60,37 @@ export const getConfig = (customConfig) => {
     }
 
 }
+let getFieldTypes = (fieldTypes, fields) => {
+    return fields.map(e=>{
+        if(fieldTypes && fieldTypes.length > 0){
+            for(let f in fieldTypes){
+                if(f.fieldName === e)
+                    return {...f}                 
+            }
+        }
+        return {
+            fieldName:e,
+            fieldDisplayName:e,
+            type:null
+        }
+    })
+}
+
+let getDisplayNames = (config, fieldsTypes) => {
+    let headerNames = []               
+    if(config.fieldsToDisplay && config.fieldsToDisplay.length > 0)
+        headerNames = config.fieldsToDisplay
+    else if(config.fieldsToHide && config.fieldsToHide.length > 0){
+        headerNames = config.fields.filter(e=> !config.fieldsToHide.includes(e) )
+     } else {
+        headerNames = config.fields
+    }                                
+    return fieldsTypes.filter(f=> headerNames.includes(f.fieldDisplayName)).map(e=>e.fieldDisplayName)   
+}
 
 /**Completes and auto-generate some data values that will be used througout the screens. */
 export const getData = (data) => {
-    return Object.assign(data, data, {
+    return Object.assign(data, {
         fields: getFields(data.entities)
     })
 }

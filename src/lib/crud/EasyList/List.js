@@ -30,7 +30,7 @@ class EasyListFactory extends React.Component {
     }
 
     render() {
-
+console.log(this.props.config)
         return (
             <div>
 

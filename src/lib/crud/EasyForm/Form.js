@@ -3,7 +3,7 @@ import { MainContext } from '../MainContext';
 import MainController from '../Controllers/mainController'
 import { FormFooter } from './formParts/Footer';
 import { FormBody } from './formParts/Body';
-
+import {ViewScreens, ActionModes} from '../Util/enum'
 class EasyFormFactory extends React.Component {
     constructor(props) {
         super(props)
@@ -19,7 +19,7 @@ class EasyFormFactory extends React.Component {
     }
 
     goBack() {
-        this.props.history.setView({ view: 'list' })
+        this.props.history.setView({ view: ViewScreens.List })
     }
     componentDidUpdate(prevProps) {
         if (prevProps.data.entities !== this.props.data.entities && !this.state.entity)
@@ -28,7 +28,7 @@ class EasyFormFactory extends React.Component {
             })
     }
     componentDidMount() {
-        if (this.props.mode !== 'new')
+        if (this.props.mode !== ActionModes.Insert)
             this.setState({
                 entity: this.props.data.entities.find(e => e[this.props.data.entityId] == this.props.id)
             })
@@ -57,20 +57,21 @@ class EasyFormFactory extends React.Component {
         this.controller.insertEntity(this.state.entity)
         let cb = this.props.config.actionsCallbacks.insert
         if (cb) cb(this.state.entity)
-        this.props.history.setView({ view: 'list' })
+        this.props.history.setView({ view: ViewScreens.List })
     }
 
     render() {
         let c = this.props.config
         let values = []
         //Filter the fields that will be shown in the forms. Note that we exclude any field with object value here.
-        let fieldsNames = this.props.data.fields.filter(e => typeof e !== 'object' && e !== this.props.data.entityId);
+        let fieldsNames = this.props.config.fields.filter(e => typeof e !== 'object' && e !== this.props.data.entityId);
+
         //Here we extract the object values
         this.props.data.fields.filter(f => typeof f === 'object').forEach(e => fieldsNames.push(e))
-        if (!this.state.entity && this.props.mode !== 'new') {
+        if (!this.state.entity && this.props.mode !== ActionModes.Insert) {
             return (<div>No data</div>)
         }
-        if (this.props.mode !== 'new') {
+        if (this.props.mode !== ActionModes.Insert) {
             let entity = this.state.entity
             values = Object.values(entity).filter((e, i) => {
                 let keys = Object.keys(entity)
@@ -83,8 +84,8 @@ class EasyFormFactory extends React.Component {
             fieldsObjectNames.forEach(e => values.push(entity[e]))
         }
 
-        let displayNames = c.fieldsDisplayNames.length > 0 ? c.fieldsDisplayNames : fieldsNames
-        let disabled = this.props.mode === 'view' ? true : false
+        let displayNames = c.fieldsToDisplayNames.length > 0 ? c.fieldsToDisplayNames : fieldsNames
+        let disabled = this.props.mode === ActionModes.Display ? true : false
 
         return (
             <div className="container">

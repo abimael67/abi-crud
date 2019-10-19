@@ -35,9 +35,7 @@ const App = () => <EasyCrud data={{
     entities: sampleData.contacts,
     entityName: 'contacts',
     entityId: 'idContact',
-    entityDisplayName: 'Polla',
- 
-    
+    entityDisplayName: 'Polla',    
 }}
    
    config={{
@@ -46,6 +44,7 @@ const App = () => <EasyCrud data={{
                 deleteConfirmMessage:'are you sure you want to delete this contact?'
             }
        },
+       fieldsToHide:['idContact'],
        actionsCallbacks:{
        update:(e)=>alert(e)
    }}}

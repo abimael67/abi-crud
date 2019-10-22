@@ -1,14 +1,13 @@
 import React from 'react'
 import { TextField } from './TextField';
-import { MainContext } from '../MainContext';
 import { SelectField } from './SelectField';
 export const FieldBody = (props) =>{
    
 
     let ToRender = (<TextField type="text" {...props} />)
         if(props.type){
-            let t = props.type.type
-            switch(t.type){
+            let t = props.type
+            switch(t.dataType){
                 case 'text':
                     ToRender= (<TextField type="text"  {...props} />)
                     break

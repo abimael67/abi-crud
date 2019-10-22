@@ -2,15 +2,18 @@
 
 /**Completes with default values the missing configuration attributes provided by the user.*/
 export const getConfig = (customConfig) => { 
-    let fieldsT =    getFieldTypes(customConfig.fieldTypes, customConfig.fields)
+    let fieldsT = getFieldTypes(customConfig.fieldTypes, customConfig.fields)
+    customConfig.fields = customConfig.fields.map(e=>e.toLowerCase())
+    customConfig.fieldsToDisplay = customConfig.fieldsToDisplay ? customConfig.fieldsToDisplay.map(e=>e.toLowerCase()): []
+    let dn = getDisplayNames(customConfig, fieldsT)
     let defaultConfigProps = {                  
             fieldsToDisplay: [],
             fieldsToHide: [],
-            fieldsToDisplayNames:getDisplayNames(customConfig, fieldsT),       
+            fieldsToDisplayNames:dn,       
             labelsConfig:{
                 caseType: 'capital'
             },
-            fieldsTypes:fieldsT,
+            fieldTypes:fieldsT,
             tableConfig:{
                 className: 'table table-striped table-bordered',
                 deleteActionClassName: 'btn btn-danger',
@@ -56,6 +59,10 @@ export const getConfig = (customConfig) => {
             ...defaultConfigProps.labels.listView,                
             ...customConfig.labels.listView
             }
+        },
+        fieldTypes:{
+            ...defaultConfigProps.fieldTypes,
+            ...customConfig.fieldTypes,            
         }
     }
 
@@ -63,9 +70,9 @@ export const getConfig = (customConfig) => {
 let getFieldTypes = (fieldTypes, fields) => {
     return fields.map(e=>{
         if(fieldTypes && fieldTypes.length > 0){
-            for(let f in fieldTypes){
-                if(f.fieldName === e)
-                    return {...f}                 
+            for(let i=0;i<fieldTypes.length;i++){
+                if(fieldTypes[i].fieldName === e)
+                    return {...fieldTypes[i]}                 
             }
         }
         return {
@@ -76,16 +83,16 @@ let getFieldTypes = (fieldTypes, fields) => {
     })
 }
 
-let getDisplayNames = (config, fieldsTypes) => {
+let getDisplayNames = (config, fieldTypes) => {
     let headerNames = []               
     if(config.fieldsToDisplay && config.fieldsToDisplay.length > 0)
         headerNames = config.fieldsToDisplay
     else if(config.fieldsToHide && config.fieldsToHide.length > 0){
-        headerNames = config.fields.filter(e=> !config.fieldsToHide.includes(e) )
+        headerNames = config.fields.filter(e=> !config.fieldsToHide.map(e=>e.toLowerCase()).includes(e) )
      } else {
         headerNames = config.fields
     }                                
-    return fieldsTypes.filter(f=> headerNames.includes(f.fieldDisplayName)).map(e=>e.fieldDisplayName)   
+    return fieldTypes.filter(f=> headerNames.includes(f.fieldName.toLowerCase())).map(e=>e.fieldDisplayName)   
 }
 
 /**Completes and auto-generate some data values that will be used througout the screens. */

@@ -24,7 +24,7 @@ export const crudPT = () => ({
             caseType: PropTypes.oneOf(['capital', 'upper', 'lower'])
         }),
         /**In construction. Do not use. */
-        fieldsTypes: PropTypes.arrayOf(PropTypes.shape({
+        fieldTypes: PropTypes.arrayOf(PropTypes.shape({
             fieldName: PropTypes.string,
             displayName:PropTypes.string,
             type: PropTypes.shape({

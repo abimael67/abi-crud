@@ -30,14 +30,16 @@ class EasyListFactory extends React.Component {
     }
 
     render() {
-console.log(this.props.config)
         return (
             <div>
-
                 <table id={`datatable_${this.props.data.entityName || ""}`} className={this.props.config.tableConfig.className}>
                     <Header />
                     <tbody>
-                        {this.state.entities.map((row, i) => (<Row deleteHandler={this.deleteHandler} key={i} row={row} />))}
+                        {this.state.entities.map((row, i) => (<Row deleteHandler={this.deleteHandler}
+                         key={i}
+                         row={row}
+                          
+                          />))}
                     </tbody>
                 </table>
             </div>

@@ -64,7 +64,7 @@ class EasyFormFactory extends React.Component {
         let c = this.props.config
         let values = []
         //Filter the fields that will be shown in the forms. Note that we exclude any field with object value here.
-        let fieldsNames = this.props.config.fields.filter(e => typeof e !== 'object' && e !== this.props.data.entityId);
+        let fieldsNames = this.props.config.fields.filter(e => typeof e !== 'object' && e !== this.props.data.entityId.toLowerCase());
 
         //Here we extract the object values
         this.props.data.fields.filter(f => typeof f === 'object').forEach(e => fieldsNames.push(e))

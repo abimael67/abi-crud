@@ -43,8 +43,9 @@ export const FormBody = ({fieldsNames, values, changeHandler, disabled, displayN
         
         {
             fieldsNames.filter(f=> typeof f !== 'object').map((e,i)=> {
-                if(typeof values[i] === 'object') return ""                    
-                let type = config.fieldsTypes.length > 0? config.fieldsTypes.find(ft=>ft.fieldName === e): null
+                if(typeof values[i] === 'object') return "" 
+                let fieldType = config.fieldTypes.find(ft=>ft.fieldName.toLowerCase() === e)        
+                let type = fieldType.type
             return (
                     <FieldBody type={type} onChange={changeHandler} className="form-control" disabled={disabled} name={e} label={displayNames[i]} value={values[i]} key={`fbody${i}`} />
                     )

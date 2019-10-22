@@ -20,6 +20,9 @@ export const Row = (props) => {
                     //Value Cells
                     Object.keys(props.row).forEach((fieldName, i) => {
                         let value = Object.values(props.row)[i]
+                        let fType = config.fieldTypes.find(e=> e.fieldName.toLowerCase() === fieldName.toLowerCase()).type
+                        let optionText = fType && fType.options ? fType.options.find(o=> o.value === value).text : null
+                        if(optionText) value = optionText
                         lastInd = i + 1
                         if (config.fieldsToDisplay.length > 0) {
                             if (config.fieldsToDisplay.includes(fieldName))

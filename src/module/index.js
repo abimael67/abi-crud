@@ -21,7 +21,7 @@ const sampleData = {
             idContact: 1,
             name: 'Alexander',
             tel: '8096546556',            
-            country:'RD'
+            country:'DOP'
         },
         {
             idContact: 2,
@@ -45,8 +45,30 @@ const App = () => <EasyCrud data={{
             }
        },
        fieldsToHide:['idContact'],
-       actionsCallbacks:{
-       update:(e)=>alert(e)
-   }}}
+       fieldTypes:[
+           {fieldName:'country',
+        fieldDisplayName:'Country',
+        type:{
+            dataType:'select',
+            options:[
+               { text:'United States',
+                value:'USA'
+            },
+            { text:'Dominican Republic',
+                value:'DOP'
+            },
+            { text:'Canada',
+                value:'CA'
+            },
+            { text:'Mexico',
+                value:'MX'
+            },        
+        ]
+        }
+    }
+       ]
+
+       
+       }}
 />;
 export default App;

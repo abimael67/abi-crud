@@ -20,55 +20,63 @@ const sampleData = {
         {
             idContact: 1,
             name: 'Alexander',
-            tel: '8096546556',            
+            type:'TEL',
+            value: '8096546556',
             country:'DOP'
         },
         {
             idContact: 2,
             name: 'Samuel',
-            tel: '80946545666',
+            type:'WORK',
+            value: '80946545666',
             country:'USA'
+        },
+        {
+            idContact: 3,
+            name: 'Arlenys',
+            type:'',
+            value: '',
+            country:'CAD'
         }
-    ]
+    ],
 }
 const App = () => <EasyCrud data={{
     entities: sampleData.contacts,
     entityName: 'contacts',
     entityId: 'idContact',
-    entityDisplayName: 'Polla',    
+    entityDisplayName: 'List of Contacts',
 }}
    
-   config={{
-       labels:{
-            listView:{
-                deleteConfirmMessage:'are you sure you want to delete this contact?'
-            }
-       },
-       fieldsToHide:['idContact'],
-       fieldTypes:[
-           {fieldName:'country',
-        fieldDisplayName:'Country',
-        type:{
+    config={{
+      labels:{
+        listView:{
+            deleteConfirmMessage:'are you sure you want to delete this contact?'
+        }
+      },
+      fieldsToHide:['idContact'],
+      fieldTypes:[
+        {
+          fieldName:'type',
+          fieldDisplayName:'Contact Type',
+          type:{
             dataType:'select',
             options:[
-               { text:'United States',
-                value:'USA'
-            },
-            { text:'Dominican Republic',
-                value:'DOP'
-            },
-            { text:'Canada',
-                value:'CA'
-            },
-            { text:'Mexico',
-                value:'MX'
-            },        
-        ]
+              { text:'Telephone',
+               value:'TEL'
+              },
+              { text:'Work',
+                value:'WORK'
+              },
+              { text:'Fax',
+                value:'FAX'
+              },
+              { text:'Email Address',
+                value:'EMAIL'
+              },
+            ]
+          }
         }
-    }
-       ]
-
-       
-       }}
+      ]
+    }}
 />;
 export default App;

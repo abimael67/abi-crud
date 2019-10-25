@@ -53,6 +53,9 @@ const App = () => <EasyCrud data={{
             deleteConfirmMessage:'are you sure you want to delete this contact?'
         }
       },
+      // TODO
+      // If we remove/comment the 'fieldsToHide' property
+      // in the Edit screen, fields got mixed.
       fieldsToHide:['idContact'],
       fieldTypes:[
         {
